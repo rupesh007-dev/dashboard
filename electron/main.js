@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { app, BrowserWindow, ipcMain } from 'electron';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -32,7 +33,6 @@ function createWindow() {
     show: false,
   });
 
-  // Remove menu
   mainWindow.setMenu(null);
 
   if (isDev && VITE_DEV_SERVER_URL) {
@@ -44,6 +44,10 @@ function createWindow() {
 
   mainWindow.once('ready-to-show', () => {
     mainWindow.show();
+    // Check for updates as soon as window is ready (only in prod)
+    if (!isDev) {
+      autoUpdater.checkForUpdates();
+    }
   });
 
   mainWindow.on('closed', () => {
@@ -51,15 +55,23 @@ function createWindow() {
   });
 }
 
+// --- Auto Updater Logic ---
+
+// 1. FREEZE AUTO DOWNLOAD (Crucial for your "Ask User" requirement)
 autoUpdater.autoDownload = false;
 autoUpdater.autoInstallOnAppQuit = true;
 
-autoUpdater.on('update-available', () => {
-  mainWindow?.webContents.send('update-available');
+// 2. Events to send to React
+autoUpdater.on('update-available', (info) => {
+  mainWindow?.webContents.send('update-available', info);
 });
 
 autoUpdater.on('update-not-available', () => {
   mainWindow?.webContents.send('update-not-available');
+});
+
+autoUpdater.on('download-progress', (progressObj) => {
+  mainWindow?.webContents.send('download-progress', progressObj);
 });
 
 autoUpdater.on('update-downloaded', () => {
@@ -70,29 +82,14 @@ autoUpdater.on('error', (error) => {
   mainWindow?.webContents.send('update-error', error.message);
 });
 
-autoUpdater.on('download-progress', (progressObj) => {
-  mainWindow?.webContents.send('download-progress', progressObj);
-});
-
+// 3. IPC Handlers (React calls these)
 ipcMain.handle('check-for-updates', async () => {
-  if (isDev) {
-    return { status: 'dev' };
-  }
-  try {
-    await autoUpdater.checkForUpdates();
-    return { status: 'checked' };
-  } catch (error) {
-    return { status: 'error', error: error.message };
-  }
+  if (isDev) return null;
+  return await autoUpdater.checkForUpdates();
 });
 
 ipcMain.handle('download-update', async () => {
-  try {
-    await autoUpdater.downloadUpdate();
-    return { status: 'downloading' };
-  } catch (error) {
-    return { status: 'error', error: error.message };
-  }
+  return await autoUpdater.downloadUpdate();
 });
 
 ipcMain.handle('quit-and-install', () => {
@@ -105,10 +102,6 @@ ipcMain.handle('get-version', () => {
 
 app.whenReady().then(() => {
   createWindow();
-
-  if (!isDev) {
-    autoUpdater.checkForUpdatesAndNotify();
-  }
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
