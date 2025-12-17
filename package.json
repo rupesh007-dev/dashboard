@@ -1,82 +1,42 @@
 {
-  "name": "client",
-  "private": true,
+  "name": "dashboard",
   "version": "1.0.0",
-  "description": "Dashboard app with auto-update feature",
-  "author": "Revvknew Media",
   "type": "module",
-  "homepage": "https://github.com/rupesh007-dev/dashboard",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/rupesh007-dev/dashboard.git"
-  },
+  "main": "./out/main/index.js",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview",
-    "electron": "electron .",
-    "build:main": "node ./scripts/build-electron.js",
-    "build:all": "npm run build && npm run build:main",
-    "electron:dev": "cross-env NODE_ENV=development VITE_DEV_SERVER_URL=http://localhost:5173 electron .",
-    "electron:pack": "npm run build:all && electron-builder --dir",
-    "dist": "npm run build:all && electron-builder --publish=never",
-    "release": "npm run build:all && electron-builder --publish=always",
-    "postinstall": "electron-builder install-app-deps"
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "postinstall": "electron-builder install-app-deps",
+    "build:win": "npm run build && electron-builder --win --config",
+    "release": "npm run build && electron-builder --win --publish always"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.18",
-    "dotenv": "^17.2.3",
-    "electron-updater": "^6.6.2",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "tailwindcss": "^4.1.18"
+    "@electron-toolkit/preload": "^3.0.1",
+    "@electron-toolkit/utils": "^3.0.0",
+    "electron-updater": "^6.3.9",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.1",
-    "@types/react": "^19.2.5",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^5.1.1",
-    "electron": "^30.0.1",
-    "electron-builder": "^24.13.3",
-    "eslint": "^9.39.1",
-    "eslint-plugin-react-hooks": "^7.0.1",
-    "eslint-plugin-react-refresh": "^0.4.24",
-    "globals": "^16.5.0",
-    "vite": "^7.2.4"
+    "@tailwindcss/vite": "^4.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "electron": "^33.0.0",
+    "electron-builder": "^25.1.8",
+    "electron-vite": "^2.3.0",
+    "tailwindcss": "^4.0.0",
+    "vite": "^6.0.0"
   },
-  "main": "dist-electron/main.js",
   "build": {
     "appId": "com.revvknew.dashboard",
     "productName": "Dashboard",
-    "copyright": "Copyright © 2024",
     "directories": {
       "output": "release"
     },
     "files": [
-      "dist/**/*",
-      "dist-electron/**/*",
-      "package.json"
-    ],
-    "asar": true,
-    "asarUnpack": [
-      "dist-electron/preload.js"
+      "out/**/*"
     ],
     "win": {
-      "target": [
-        {
-          "target": "nsis",
-          "arch": [
-            "x64"
-          ]
-        }
-      ],
-      "icon": "public/icon.png"
-    },
-    "nsis": {
-      "oneClick": false,
-      "allowToChangeInstallationDirectory": true,
-      "deleteAppDataOnUninstall": false
+      "target": "nsis"
     },
     "publish": {
       "provider": "github",

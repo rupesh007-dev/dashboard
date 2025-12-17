@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+node_modules
+dist
+out
+.DS_Store
+.eslintcache
+*.log*
+release

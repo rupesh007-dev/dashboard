@@ -1,0 +1,17 @@
+import Versions from "./components/Versions";
+
+function App() {
+  const ipcHandle = () => window.electron.ipcRenderer.send("ping");
+
+  return (
+    <>
+      <a target="_blank" rel="noreferrer" onClick={ipcHandle}>
+        Send IPC
+      </a>
+
+      <Versions />
+    </>
+  );
+}
+
+export default App;
