@@ -1,4 +1,4 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron'
+import { app, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../public/icon.png?asset' // Use ?asset for electron-vite
@@ -27,7 +27,7 @@ function createWindow() {
 
 app.whenReady().then(() => {
   electronApp.setAppUserModelId('com.revvknew.dashboard')
-  
+
   app.on('browser-window-created', (_, window) => {
     optimizer.watchWindowShortcuts(window)
   })

@@ -8,6 +8,7 @@ function App() {
       <a target="_blank" rel="noreferrer" onClick={ipcHandle}>
         Send IPC
       </a>
+      <h1>hello world</h1>
 
       <Versions />
     </>
