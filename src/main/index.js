@@ -103,7 +103,7 @@ function createWindow() {
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
     if (is.dev) {
-      mainWindow.webContents.openDevTools()
+      // mainWindow.webContents.openDevTools()
     } else {
       // Start checking for updates in production
       autoUpdater.checkForUpdatesAndNotify()
