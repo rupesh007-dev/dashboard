@@ -73,39 +73,157 @@
 
 
 
-import { app, BrowserWindow, ipcMain } from 'electron'
+// import { app, BrowserWindow, ipcMain } from 'electron'
+// import { join } from 'path'
+// import { electronApp, optimizer, is } from '@electron-toolkit/utils'
+// // import { autoUpdater } from 'electron-updater'
+// import icon from '../../public/icon.png?asset'
+
+// import pkg from "electron-updater"
+// const { autoUpdater } = pkg
+
+
+// // Configure logging for the updater
+// autoUpdater.logger = console
+// autoUpdater.autoDownload = true
+
+// function createWindow() {
+//   const mainWindow = new BrowserWindow({
+//     width: 900,
+//     height: 670,
+//     show: false,
+//     autoHideMenuBar: true,
+//     icon,
+//     webPreferences: {
+//       preload: join(__dirname, '../preload/index.mjs'),
+//       sandbox: false
+//     }
+//   })
+
+//   mainWindow.on('ready-to-show', () => {
+//     mainWindow.show()
+//     if (is.dev) {
+//       // mainWindow.webContents.openDevTools()
+//     } else {
+//       // Start checking for updates in production
+//       autoUpdater.checkForUpdatesAndNotify()
+//     }
+//   })
+
+//   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
+//     mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL'])
+//   } else {
+//     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
+//   }
+// }
+
+// // --- Auto Updater Events ---
+// autoUpdater.on('checking-for-update', () => {
+//   console.log('Checking for update...')
+// })
+// autoUpdater.on('update-available', (info) => {
+//   console.log('Update available:', info.version)
+// })
+// autoUpdater.on('update-not-available', () => {
+//   console.log('Update not available.')
+// })
+// autoUpdater.on('error', (err) => {
+//   console.error('Error in auto-updater:', err)
+// })
+// autoUpdater.on('update-downloaded', () => {
+//   console.log('Update downloaded. Restarting app...')
+//   autoUpdater.quitAndInstall()
+// })
+
+// app.whenReady().then(() => {
+//   electronApp.setAppUserModelId('com.revvknew.dashboard')
+
+//   app.on('browser-window-created', (_, window) => {
+//     optimizer.watchWindowShortcuts(window)
+//   })
+
+//   ipcMain.on('ping', () => console.log('pong'))
+//   createWindow()
+// })
+
+// app.on('window-all-closed', () => {
+//   if (process.platform !== 'darwin') app.quit()
+// })
+
+
+
+import { app, BrowserWindow, ipcMain, screen, session } from 'electron' // Added session
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
-// import { autoUpdater } from 'electron-updater'
 import icon from '../../public/icon.png?asset'
-
 import pkg from "electron-updater"
 const { autoUpdater } = pkg
-
 
 // Configure logging for the updater
 autoUpdater.logger = console
 autoUpdater.autoDownload = true
 
 function createWindow() {
+  // const mainWindow = new BrowserWindow({
+  //   width: 900,
+  //   height: 670,
+  //   show: false,
+  //   autoHideMenuBar: true,
+  //   icon,
+  //   webPreferences: {
+  //     preload: join(__dirname, '../preload/index.mjs'),
+  //     sandbox: false,
+
+  //     // --- CRITICAL SETTINGS ---
+  //     webSecurity: false,             // Allows Cross-Origin (Dropbox)
+  //     allowRunningInsecureContent: true, // Allows https fonts on http dev server
+  //     experimentalFeatures: true,     // Helps with some CSS loading issues
+  //     nodeIntegration: true,          // Ensures internal tools work
+  //     contextIsolation: false         // Often needed if you have older scripts
+  //   }
+  // })
+
+
+
+
+
+
+  // 1. Get the primary display dimensions
+  const { width, height } = screen.getPrimaryDisplay().workAreaSize
+
   const mainWindow = new BrowserWindow({
-    width: 900,
-    height: 670,
+    width: width,   // 100% of available width
+    height: height, // 100% of available height
+    x: 0,
+    y: 0,
     show: false,
-    autoHideMenuBar: true,
+    // fullscreen: true,
+
+
+    autoHideMenuBar: false,
     icon,
     webPreferences: {
       preload: join(__dirname, '../preload/index.mjs'),
-      sandbox: false
+      sandbox: false,
+      webSecurity: false,
+      contextIsolation: false
     }
   })
+
+
+
+
+
+
+
+
+
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
     if (is.dev) {
       // mainWindow.webContents.openDevTools()
     } else {
-      // Start checking for updates in production
       autoUpdater.checkForUpdatesAndNotify()
     }
   })
@@ -118,24 +236,54 @@ function createWindow() {
 }
 
 // --- Auto Updater Events ---
-autoUpdater.on('checking-for-update', () => {
-  console.log('Checking for update...')
-})
-autoUpdater.on('update-available', (info) => {
-  console.log('Update available:', info.version)
-})
-autoUpdater.on('update-not-available', () => {
-  console.log('Update not available.')
-})
-autoUpdater.on('error', (err) => {
-  console.error('Error in auto-updater:', err)
-})
+autoUpdater.on('checking-for-update', () => console.log('Checking for update...'))
+autoUpdater.on('update-available', (info) => console.log('Update available:', info.version))
+autoUpdater.on('update-not-available', () => console.log('Update not available.'))
+autoUpdater.on('error', (err) => console.error('Error in auto-updater:', err))
 autoUpdater.on('update-downloaded', () => {
   console.log('Update downloaded. Restarting app...')
   autoUpdater.quitAndInstall()
 })
 
-app.whenReady().then(() => {
+app.whenReady().then(async () => {
+  // FIX 2: FRESH START LOGIC
+  // Clears LocalStorage, Cookies, and Cache every time the app opens
+  try {
+    await session.defaultSession.clearStorageData({
+      storages: ['localstorage', 'cookies', 'cache', 'indexdb', 'websql']
+    })
+    console.log('Storage and cache cleared successfully.')
+  } catch (err) {
+    console.error('Failed to clear storage:', err)
+  }
+
+  // FIX 3: CSP BYPASS
+  // Removes security headers that block Google Fonts and External Styles
+  // session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+  //   callback({
+  //     responseHeaders: {
+  //       ...details.responseHeaders,
+  //       'Content-Security-Policy': [''] 
+  //     }
+  //   })
+  // })
+  // main/index.js
+session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+  callback({
+    responseHeaders: {
+      ...details.responseHeaders,
+      'Content-Security-Policy': [
+        // 1. Added script-src to allow Vite/React scripts
+        "default-src 'self'; " +
+        "script-src 'self' 'unsafe-inline' 'unsafe-eval'; " +
+        "connect-src 'self' http://192.168.29.121:3000 http://localhost:* ws://localhost:*; " +
+        "img-src 'self' data: https://*.dropbox.com https://*.dropboxusercontent.com; " +
+        "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
+        "font-src 'self' data: https://fonts.gstatic.com;"
+      ]
+    }
+  })
+})
   electronApp.setAppUserModelId('com.revvknew.dashboard')
 
   app.on('browser-window-created', (_, window) => {
@@ -148,4 +296,8 @@ app.whenReady().then(() => {
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit()
+})
+
+app.on('activate', function () {
+  if (BrowserWindow.getAllWindows().length === 0) createWindow()
 })

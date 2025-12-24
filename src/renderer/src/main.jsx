@@ -1,11 +1,28 @@
-import "./index.css";
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import './index.css';
+import App from './App.jsx';
+import { ThemeProvider } from './context/ThemeContext.jsx';
+import { AppWrapper } from './components/common/PageMeta.jsx';
+import { Provider } from 'react-redux';
+import { persistor, store } from './store/store.js';
+import { PersistGate } from 'redux-persist/integration/react';
+import { socket, SocketContext } from './context/SocketContext.jsx';
+import { Toaster } from 'react-hot-toast';
 
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import App from "./App";
-
-createRoot(document.getElementById("root")).render(
+createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <ThemeProvider>
+          <AppWrapper>
+            <SocketContext.Provider value={socket}>
+              <App />
+              <Toaster />
+            </SocketContext.Provider>
+          </AppWrapper>
+        </ThemeProvider>
+      </PersistGate>
+    </Provider>
   </StrictMode>
 );
