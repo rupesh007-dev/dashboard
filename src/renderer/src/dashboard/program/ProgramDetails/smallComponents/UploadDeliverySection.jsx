@@ -27,7 +27,6 @@ export const UploadDeliverySection = ({ programId }) => {
       });
       const result = await res.json();
 
-      console.log(result, 'resulkt');
       setMessage(res.ok ? '✅ Delivery upload successful' : result.error || '❌ Delivery upload failed');
     } catch (err) {
       console.error(err);

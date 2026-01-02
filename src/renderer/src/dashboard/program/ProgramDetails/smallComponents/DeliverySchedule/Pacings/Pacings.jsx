@@ -190,25 +190,25 @@ import { useFetchData } from '../../../../../../hooks/useFetchData';
 import toast from 'react-hot-toast';
 
 const PACING_STATUS_MAP = {
-  scheduled: 'Scheduled',
-  Active: 'Active',
-  Completed: 'Completed',
+  scheduled: 'scheduled',
+  active: 'active',
+  completed: 'completed',
 };
 
 const STATUS_THEMES = {
-  Scheduled: {
+  scheduled: {
     bg: 'bg-amber-50 dark:bg-amber-900/10',
     text: 'text-amber-700 dark:text-amber-400',
     border: 'border-amber-200 dark:border-amber-800/50',
     bar: '#F59E0B',
   },
-  Active: {
+  active: {
     bg: 'bg-blue-50 dark:bg-blue-900/10',
     text: 'text-blue-700 dark:text-blue-400',
     border: 'border-blue-200 dark:border-blue-800/50',
     bar: '#3B82F6',
   },
-  Completed: {
+  completed: {
     bg: 'bg-emerald-50 dark:bg-emerald-900/10',
     text: 'text-emerald-700 dark:text-emerald-400',
     border: 'border-emerald-200 dark:border-emerald-800/50',
@@ -248,14 +248,16 @@ const Pacings = ({ volumeId, onBack }) => {
     }
   };
 
+  console.log(pacings, 'pacings');
+
   const groupedPacings = useMemo(() => {
-    const groups = { Scheduled: [], Active: [], Completed: [] };
+    const groups = { scheduled: [], active: [], completed: [] };
 
     // Sort by date before grouping
     const sortedPacings = [...pacings].sort((a, b) => new Date(a.scheduledFor) - new Date(b.scheduledFor));
 
     sortedPacings.forEach((pacing) => {
-      const status = PACING_STATUS_MAP[pacing.status] || 'Scheduled';
+      const status = PACING_STATUS_MAP[pacing.status]  ;
       if (groups[status]) groups[status].push(pacing);
     });
     return groups;
@@ -289,7 +291,7 @@ const Pacings = ({ volumeId, onBack }) => {
 
   return (
     <div className="animate-in fade-in duration-500 space-y-6">
-      <div className="rounded-2xl border border-gray-200 bg-white dark:bg-gray-950 p-5 shadow-sm">
+      <div className="rounded-2xl border border-gray-200 bg-white dark:bg-gray-950 p-5 ">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
           <button
@@ -369,8 +371,8 @@ const Pacings = ({ volumeId, onBack }) => {
                                 className="text-[10px] font-black uppercase py-1.5 px-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 cursor-pointer focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                               >
                                 <option value="scheduled">Scheduled</option>
-                                <option value="Active">Active</option>
-                                <option value="Completed">Completed</option>
+                                <option value="active">Active</option>
+                                <option value="completed">Completed</option>
                               </select>
                             )}
                           </div>

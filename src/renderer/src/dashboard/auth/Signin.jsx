@@ -41,7 +41,7 @@ const Signin = () => {
       <div className="flex flex-col items-center space-y-8">
         <div className="text-center">
           <img
-            src="https://dl.dropboxusercontent.com/scl/fi/x06lq503q564254zn5370/Main-logo.svg?rlkey=gn7njrmr1bcixpl3atgkobjaz"
+            src="https://www.dropbox.com/scl/fi/x06lq503q564254zn5370/Main-logo.svg?rlkey=gn7njrmr1bcixpl3atgkobjaz&st=z281m6ar&raw=1"
             alt="logo"
             className="dark:brightness-90"
           />

@@ -21,7 +21,6 @@ const ProgramDetailPage = ({ programId, PageBreadcrumb }) => {
 
   const programData = data?.data || [];
 
-  console.log(programData, 'programData');
   if (error) {
     return (
       <div className="p-6 text-center text-red-600 dark:text-red-400 border border-red-200 rounded-lg">

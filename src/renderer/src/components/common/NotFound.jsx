@@ -10,12 +10,12 @@ export default function NotFound() {
           <h1 className="mb-8 font-bold text-gray-800 text-title-md dark:text-white/90 xl:text-title-2xl">ERROR</h1>
 
           <img
-            src="https://dl.dropboxusercontent.com/scl/fi/08bunkevu4w88hyze7eys/404.svg?rlkey=k9d264v4f9xfgbit497c8ajkl"
+            src="https://www.dropbox.com/scl/fi/08bunkevu4w88hyze7eys/404.svg?rlkey=k9d264v4f9xfgbit497c8ajkl&st=5rxrcflx&raw=1"
             alt="404"
             className="dark:hidden"
           />
           <img
-            src="https://dl.dropboxusercontent.com/scl/fi/tdv7w0lf692rxq4hxqxnd/404-dark.svg?rlkey=7pvdja83mwwb4i7vpbi1ic2xu"
+            src="https://www.dropbox.com/scl/fi/tdv7w0lf692rxq4hxqxnd/404-dark.svg?rlkey=7pvdja83mwwb4i7vpbi1ic2xu&st=vrtqy8bi&raw=1"
             alt="404"
             className="hidden dark:block"
           />

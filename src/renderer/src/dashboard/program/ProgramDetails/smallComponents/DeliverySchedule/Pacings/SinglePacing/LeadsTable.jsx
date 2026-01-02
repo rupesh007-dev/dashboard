@@ -188,7 +188,7 @@ const LeadsTable = ({ headers, leads }) => {
       </div>
 
       {/* Enhanced Styling */}
-      <style jsx global>{`
+      <style>{`
         .enhanced-spreadsheet {
           font-size: 0.75rem;
           font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;

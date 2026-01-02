@@ -30,7 +30,6 @@ export function Drawer({ open, setOpen, children, width = '90%' }) {
             aria-label="Close drawer"
             className="absolute right-10 top-4 z-10 p-2 text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors rounded-full hover:bg-gray-100 dark:hover:bg-neutral-800"
           >
-            {/* SVG X-icon (using a standard 24x24 size) */}
             <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>

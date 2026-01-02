@@ -1,10 +1,10 @@
-import { SidebarProvider, useSidebar } from '../context/SidebarContext';
+import { useSidebar } from '../context/SidebarContext';
 import AppSidebar from './AppSidebar';
 import AppHeader from './AppHeader';
-
 import Backdrop from './Backdrop';
 import { Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import SidebarProvider from '../context/SidebarProvider';
 
 const LayoutContent = () => {
   const { isExpanded, isHovered, isMobileOpen } = useSidebar();

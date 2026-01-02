@@ -22,7 +22,7 @@ export const useDropboxUpload = () => {
     return (await response.json()).access_token;
   };
 
-  const uploadFileToDropbox = useCallback(async (file, folderPath, onProgress) => {
+  const uploadFileToDropbox = useCallback(async (file, folderPath) => {
     try {
       const token = await refreshAccessToken();
 
@@ -138,7 +138,7 @@ export const useDropboxUpload = () => {
       try {
         await createFolder(folderPath);
 
-        const uploadPromises = files.map(async (file, index) => {
+        const uploadPromises = files.map(async (file) => {
           try {
             const result = await uploadFileToDropbox(file, folderPath, (progress) => {
               setUploadProgress((prev) => ({

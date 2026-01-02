@@ -26,9 +26,6 @@ export default function SinglePacing({ pacingId, onBack }) {
     refetch: refetchLeads,
   } = useFetchData(pacingId ? `/leads/pacing/${pacingId}` : null);
 
-  console.log(pacingId, 'pacingId');
-
-  console.log(leadsRes, 'leadsRes');
   const flags = validationRes?.data || {};
   const volumeName = flags.volumeName || 'Volume';
   const pacingDate = flags.pacingDate || '';
@@ -159,7 +156,7 @@ export default function SinglePacing({ pacingId, onBack }) {
       </div>
 
       {/* Drawers */}
-      <Drawer open={isDrawerOpen} setOpen={setIsDrawerOpen} width="60%">
+      <Drawer open={isDrawerOpen} setOpen={setIsDrawerOpen} width="100%">
         <UploadDrawer
           pacingId={pacingId}
           onSuccess={() => {

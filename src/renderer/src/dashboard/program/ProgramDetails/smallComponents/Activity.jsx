@@ -1,11 +1,10 @@
 export const Activity = ({ data }) => {
   return (
     <>
-      <div className="flex items-center justify-between">
-        <h4 className="text-lg font-medium text-gray-900 dark:text-white">Activity</h4>
-      </div>
-
       <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 lg:p-6 text-sm space-y-4">
+        <div className="flex items-center justify-between">
+          <h4 className="text-lg font-medium text-gray-900 dark:text-white">Activity</h4>
+        </div>
         {data?.map((item, index) => (
           <div key={item.id || index} className="flex gap-x-3">
             <div className="relative last:after:hidden after:absolute after:top-7 after:bottom-0 after:start-3.5 after:w-px after:-translate-x-[0.5px] after:bg-gray-200 dark:after:bg-gray-600">

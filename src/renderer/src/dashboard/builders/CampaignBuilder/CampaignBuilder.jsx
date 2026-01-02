@@ -1052,7 +1052,7 @@ const ProgramBuilder = ({ onSuccess }) => {
   };
 
   return (
-    <div className="mt-6 border rounded-2xl bg-white p-6 shadow-sm">
+    <div className="mt-6 border rounded-2xl bg-white p-6  ">
       <h2 className="text-xl font-semibold mb-6">Campaign Builder</h2>
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Core Info */}

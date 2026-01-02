@@ -156,7 +156,7 @@ export default function ApplyLeave({ userId }) {
                 required
                 className={inputBaseClasses + ' appearance-none'}
               />
-              <CalendarIcon className="absolute right-3 top-3.5 w-4 h-4 text-gray-400 dark:text-gray-500 pointer-events-none" />
+              {/* <CalendarIcon className="absolute right-3 top-3.5 w-4 h-4 text-gray-400 dark:text-gray-500 pointer-events-none" /> */}
             </div>
           </div>
 
@@ -170,7 +170,7 @@ export default function ApplyLeave({ userId }) {
                 required
                 className={inputBaseClasses + ' appearance-none'}
               />
-              <CalendarIcon className="absolute right-3 top-3.5 w-4 h-4 text-gray-400 dark:text-gray-500 pointer-events-none" />
+              {/* <CalendarIcon className="absolute right-3 top-3.5 w-4 h-4 text-gray-400 dark:text-gray-500 pointer-events-none" /> */}
             </div>
           </div>
         </div>

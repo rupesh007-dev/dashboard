@@ -23,6 +23,14 @@ export const StatusBadge = ({ status = '' }) => {
         return 'bg-green-100 text-green-700 border-green-200';
       case 'new':
         return 'bg-green-100 text-green-700 border-green-200';
+      case 'Low':
+        return 'bg-green-100 text-green-400 border-green-200';
+      case 'Med':
+        return 'bg-green-100 text-green-500 border-green-200';
+      case 'High':
+        return 'bg-green-100 text-green-600 border-green-200';
+      case 'Urgent':
+        return 'bg-green-100 text-green-700 border-green-200';
       default:
         return 'bg-gray-100 text-gray-700 border-gray-200';
     }

@@ -192,17 +192,16 @@ export const Content = ({ data, programId }) => {
 
   return (
     <>
-      <div className="flex items-center justify-between mb-4">
-        <h4 className="text-lg font-medium text-gray-900 dark:text-white">Content</h4>
-        <button
-          onClick={openAddModal}
-          className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-        >
-          <FolderPlus size={20} />
-        </button>
-      </div>
-
       <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 lg:p-6 space-y-6 text-sm">
+        <div className="flex items-center justify-between mb-4">
+          <h4 className="text-lg font-medium text-gray-900 dark:text-white">Content</h4>
+          <button
+            onClick={openAddModal}
+            className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+          >
+            <FolderPlus size={20} />
+          </button>
+        </div>
         {categories.length === 0 && <p className="text-gray-500 italic">No content available.</p>}
         {categories?.map((category, index) => (
           <div key={index}>
@@ -280,7 +279,7 @@ export const Content = ({ data, programId }) => {
               >
                 <h3 className="text-lg font-semibold mb-2">Confirm Delete</h3>
                 <p className="text-gray-600 dark:text-gray-300 mb-6">
-                  Delete <span className="font-bold text-red-500">"{deleteTarget.title}"</span>?
+                  Delete <span className="font-bold text-red-500">&quot;{deleteTarget.title}&quot;</span>?
                 </p>
                 <div className="flex justify-center gap-3">
                   <button

@@ -108,7 +108,7 @@ export default function ProgramTabs() {
             )}
             <span className="relative z-10">{tab.id}</span>
 
-            <span
+            {/* <span
               className={`ml-2 rounded-lg px-2 py-0.5 text-xs relative z-10 ${
                 activeTab === tab.id
                   ? 'text-blue-600 dark:text-blue-400'
@@ -116,7 +116,7 @@ export default function ProgramTabs() {
               }`}
             >
               {counts[tab.key] || 0}
-            </span>
+            </span> */}
           </button>
         ))}
       </div>

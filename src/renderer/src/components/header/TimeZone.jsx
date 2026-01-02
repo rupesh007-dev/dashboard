@@ -9,40 +9,39 @@ const timezones = [
 const TimeZone = ({ mobile = false }) => {
   const [times, setTimes] = useState({});
 
-  const fetchTime = (tz) => {
-    const date = new Date();
-    const options = {
-      timeZone: tz,
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      hour12: true,
-      weekday: mobile ? undefined : 'short',
-      day: mobile ? undefined : 'numeric',
-      month: mobile ? undefined : 'short',
-      year: mobile ? undefined : 'numeric',
+  useEffect(() => {
+    const fetchTime = (tz) => {
+      const date = new Date();
+      const options = {
+        timeZone: tz,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true,
+        weekday: mobile ? undefined : 'short',
+        day: mobile ? undefined : 'numeric',
+        month: mobile ? undefined : 'short',
+        year: mobile ? undefined : 'numeric',
+      };
+
+      let localeString = date.toLocaleString('en-GB', options).replace(/\b(am|pm)\b/g, (m) => m.toUpperCase());
+
+      if (mobile) {
+        return localeString.split(' ')[0];
+      }
+
+      const [datePart, timePart] = localeString.split(', ').slice(-2);
+      return `${datePart} | ${timePart}`;
     };
 
-    let localeString = date.toLocaleString('en-GB', options).replace(/\b(am|pm)\b/g, (m) => m.toUpperCase());
+    const updateTimes = () => {
+      const newTimes = {};
+      for (const t of timezones) {
+        newTimes[t.tz] = fetchTime(t.tz);
+      }
+      setTimes(newTimes);
+    };
 
-    if (mobile) {
-      return localeString.split(' ')[0];
-    }
-
-    const [datePart, timePart] = localeString.split(', ').slice(-2);
-    return `${datePart} | ${timePart}`;
-  };
-
-  const updateTimes = () => {
-    const newTimes = {};
-    for (const t of timezones) {
-      newTimes[t.tz] = fetchTime(t.tz);
-    }
-    setTimes(newTimes);
-  };
-
-  useEffect(() => {
-    updateTimes();
     const interval = setInterval(updateTimes, 1000);
     return () => clearInterval(interval);
   }, [mobile]);

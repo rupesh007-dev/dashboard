@@ -1,5 +1,4 @@
 import { useState } from 'react';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../../store/user/userSlice';
@@ -38,56 +37,58 @@ const Checkout = () => {
     }
   };
   return (
-    <div>
-      <button
-        onClick={handleCheckoutClick}
-        className="relative flex items-center justify-center text-gray-500 transition-colors bg-red-500 border border-gray-200 rounded-full hover:text-dark-900 h-11 w-11 hover:bg-red-400 hover:text-gray-700 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
-      >
-        <Power className="text-white" />
-      </button>
-
-      {showModal && (
-        <div
-          className="fixed inset-0 bg-black/40 flex items-center justify-center z-50"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+    <>
+      <div>
+        <button
+          onClick={handleCheckoutClick}
+          className="relative flex items-center justify-center text-gray-500 transition-colors bg-red-500 border border-gray-200 rounded-full hover:text-dark-900 h-11 w-11 hover:bg-red-400 hover:text-gray-700 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
         >
+          <Power className="text-white" />
+        </button>
+
+        {showModal && (
           <div
-            className="bg-white dark:bg-gray-800 rounded-xl shadow-xl p-6 w-full max-w-2xl text-center"
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
+            className="fixed inset-0 bg-black/40 flex items-center justify-center z-50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
           >
-            <h3 className="text-lg font-semibold mb-4">Add Remark</h3>
+            <div
+              className="bg-white dark:bg-gray-800 rounded-xl shadow-xl p-6 w-full max-w-2xl text-center"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+            >
+              <h3 className="text-lg font-semibold mb-4">Add Remark</h3>
 
-            <textarea
-              type="text"
-              value={remark}
-              onChange={(e) => setRemark(e.target.value)}
-              placeholder="Enter remark before checkout..."
-              rows={10}
-              className="w-full p-2 border rounded mb-4 dark:bg-gray-700"
-            ></textarea>
+              <textarea
+                type="text"
+                value={remark}
+                onChange={(e) => setRemark(e.target.value)}
+                placeholder="Enter remark before checkout..."
+                rows={10}
+                className="w-full p-2 border rounded mb-4 dark:bg-gray-700"
+              ></textarea>
 
-            <div className="flex justify-center gap-4">
-              <button onClick={() => setShowModal(false)} className="px-4 py-2 rounded bg-gray-300 dark:bg-gray-600">
-                Cancel
-              </button>
+              <div className="flex justify-center gap-4">
+                <button onClick={() => setShowModal(false)} className="px-4 py-2 rounded bg-gray-300 dark:bg-gray-600">
+                  Cancel
+                </button>
 
-              <button
-                onClick={() => setConfirmModal(true)}
-                disabled={!remark}
-                className="px-4 py-2 rounded bg-blue-600 text-white disabled:bg-blue-300"
-              >
-                Checkout
-              </button>
+                <button
+                  onClick={() => setConfirmModal(true)}
+                  disabled={!remark}
+                  className="px-4 py-2 rounded bg-blue-600 text-white disabled:bg-blue-300"
+                >
+                  Checkout
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
       {confirmModal && (
         <div
-          className="fixed inset-0 bg-black/40 flex items-center justify-center z-50"
+          className="fixed inset-0 bg-black/40 flex items-center justify-center z-101"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
         >
@@ -113,7 +114,7 @@ const Checkout = () => {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

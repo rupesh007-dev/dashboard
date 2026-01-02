@@ -19,7 +19,6 @@
 //       [field]: value,
 //     }));
 //   };
-// console.log(files,"files")
 //   const generateFinalJson = () => ({
 //     mode: rules.mode,
 //     fieldNames: rules.fieldNames
@@ -247,7 +246,6 @@ const ExternalRule = ({ volumeId, files, onRuleAdded }) => {
       if (!res.ok) throw new Error(`Failed with status ${res.status}`);
 
       const savedResponse = await res.json();
-      console.log(savedResponse, 'savedResponse');
       // Use the response from server if it exists, otherwise use the local json
       const ruleToDisplay = savedResponse.externalRules || genjson;
 

@@ -229,12 +229,11 @@ const AppSidebar = ({ user }) => {
           !isExpanded && !isHovered ? 'lg:justify-between' : 'justify-between'
         }`}
       >
-        {/* Logo (click to go home) */}
         <Link to="/" className="flex items-center">
           {isExpanded || isHovered || isMobileOpen ? (
             <img
               className="dark:hidden"
-              src="https://dl.dropboxusercontent.com/scl/fi/x06lq503q564254zn5370/Main-logo.svg?rlkey=gn7njrmr1bcixpl3atgkobjaz"
+              src="https://www.dropbox.com/scl/fi/hsdob0q1w5c5152hfp1fw/Nerua-Logo.png?rlkey=ipvozips4aecfbhcat4k2qn7v&st=qrm7jrvy&raw=1"
               alt="Logo"
               width={150}
               height={40}
@@ -244,7 +243,7 @@ const AppSidebar = ({ user }) => {
           {isExpanded || isHovered || isMobileOpen ? (
             <img
               className="hidden dark:block"
-              src="https://dl.dropboxusercontent.com/scl/fi/x06lq503q564254zn5370/Main-logo.svg?rlkey=gn7njrmr1bcixpl3atgkobjaz"
+              src="https://www.dropbox.com/scl/fi/hsdob0q1w5c5152hfp1fw/Nerua-Logo.png?rlkey=ipvozips4aecfbhcat4k2qn7v&st=qrm7jrvy&raw=1"
               alt="Logo"
               width={150}
               height={40}
@@ -252,7 +251,6 @@ const AppSidebar = ({ user }) => {
           ) : null}
         </Link>
 
-        {/* Sidebar Toggle Button */}
         <button
           className="flex items-center justify-center w-10 h-10 text-gray-500 hover:bg-black/10 rounded-lg     dark:border-gray-800 dark:text-gray-400 lg:h-10 lg:w-10"
           onClick={handleToggle}
@@ -261,11 +259,10 @@ const AppSidebar = ({ user }) => {
           {isExpanded || isHovered || isMobileOpen ? <PanelRightOpen size={24} /> : <PanelRightClose size={24} />}
         </button>
 
-        {/* Collapsed mode icon */}
         {!isExpanded && !isHovered && !isMobileOpen && (
           <Link to="/" className="flex items-center">
             <img
-              src="https://dl.dropboxusercontent.com/scl/fi/92yl4naewe0jvbnd5rbpu/icons8-dashboard-96.png?rlkey=g4a1onr79y7zan8ta070mbrtu"
+              src="https://www.dropbox.com/scl/fi/92yl4naewe0jvbnd5rbpu/icons8-dashboard-96.png?rlkey=g4a1onr79y7zan8ta070mbrtu&st=cqwlibn3&raw=1"
               alt="Logo Icon"
               width={32}
               height={32}
